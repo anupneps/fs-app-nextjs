@@ -8,10 +8,7 @@ import { faUser, faSquarePlus, faBars, faGear } from '@fortawesome/free-solid-sv
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Nav = () => {
-  // const isUserLoggedIn = true;
-
   const { data: session } = useSession();
-
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -76,7 +73,6 @@ const Nav = () => {
               width={37}
               height={37}
               className='rounded-full'
-              // onClick={() => setToggleDropdown((prev) => !prev)} />
             />
             <span style={{ marginRight: '10px', marginLeft: '10px' }}
               width={37}
