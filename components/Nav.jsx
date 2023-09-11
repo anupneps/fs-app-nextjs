@@ -32,6 +32,7 @@ const Nav = () => {
         />
         <p className="logo_text">Promptopia</p>
       </Link>
+      <div><h3><span className='text-orange-400'>Welcome </span>{session?.user.name}</h3></div>
 
       {/* Desktop navigation */}
       <div className="sm:flex hidden">
@@ -42,7 +43,8 @@ const Nav = () => {
             <button type='button' onClick={signOut} className='outline_btn'>Sign Out</button>
             <Link href="/profile" >
               <Image
-                src="/assets/images/logo.svg"
+                // src="/assets/images/logo.svg"
+                src={session?.user.image}
                 alt="Profile"
                 width={37}
                 height={37}
@@ -69,7 +71,10 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {session?.user ? (
           <div className="flex">
-            <Image src="/assets/images/logo.svg" alt="Profile"
+            <Image 
+              // src="/assets/images/logo.svg" 
+              src={session?.user.image}
+              alt="Profile"
               width={37}
               height={37}
               className='rounded-full'
