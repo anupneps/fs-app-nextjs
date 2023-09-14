@@ -6,9 +6,9 @@ import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
-  // console.log("promtcard data :",post)
+  console.log("promtcard data :", post)
   const [copied, setCopied] = useState('');
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
 
@@ -21,13 +21,14 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   return (
     <div className='prompt_card'>
       <div className='flex justify-between items-start gap-5'>
-        <div>
+        <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer'>
           <Image
-            src={post.creator.image}
-            alt="user profile picture"
+            // src={post.creator.image}
+            src='/assets/images/user.png'
+            alt="A"
             width={40}
             height={40}
-            className='rounded-full object-contain'
+            className='rounded-full object-contain border-2 border-black-200'
           />
           <div>
             <h3>{post.creator.username}</h3>
@@ -39,6 +40,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             src={copied === post.prompt ? '/assets/icons/tick.svg' : '/assets/icons/copy.svg'}
             width={12}
             height={12}
+            alt='copy to clipboard'
           />
         </div>
       </div>
@@ -47,12 +49,11 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         onClick={() => handleTagClick && handleTagClick(post.tag)}>{post.tag}</p>
 
       {session?.user.id === post.creator._id && pathName === '/profile' && (
-        <div>
+        <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
           <p className='font-inter text-sm green_gradient cursor-pointer' onClick={handleEdit}>Edit</p>
-          <p className='font-inter text-sm green_gradient cursor-pointer' onClick={handleDelete}>Delete</p>
+          <p className='font-inter text-sm orange_gradient cursor-pointer' onClick={handleDelete}>Delete</p>
         </div>
       )}
-
     </div>
   )
 }
