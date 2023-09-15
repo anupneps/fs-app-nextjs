@@ -41,7 +41,7 @@ const Nav = () => {
             <Link href="/create-prompt"
               className='black_btn'>Create Post </Link>
             <button type='button' onClick={signOut} className='outline_btn'>Sign Out</button>
-            <Link href="/profile" >
+            <Link href={`/profile`}>
               <Image
                 // src="/assets/images/logo.svg"
                 src={session?.user.image}
@@ -71,7 +71,7 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {session?.user ? (
           <div className="flex">
-            <Image 
+            <Image
               // src="/assets/images/logo.svg" 
               src={session?.user.image}
               alt="Profile"
