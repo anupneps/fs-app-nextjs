@@ -4,13 +4,16 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 
-const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
+const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikeClick }) => {
   
   const [copied, setCopied] = useState('');
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
+  const [liked, setLiked] = useState(0);
 
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -23,6 +26,12 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       return router.push('/profile')
     }
     router.push(`/profile/${post.creator._id}?name=${post.creator.username}`)
+  }
+
+  const handleLike = () => {
+    setLiked((prevState)=> {
+      return prevState + 1
+    })
   }
 
   return (
@@ -53,9 +62,13 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         </div>
       </div>
       <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
+      <div className='flex justify-between font-inter text-sm '>
       <p className='font-inter text-sm blue_gradient cursor-pointer'
         onClick={() => handleTagClick && handleTagClick(post.tag)}>{post.tag}</p>
-
+      <p className='justify-end cursor-pointer' onClick={handleLike} ><span className='mr-2'><FontAwesomeIcon icon={faThumbsUp} /></span>{liked}</p>
+      </div>
+      
+      
       {session?.user.id === post.creator._id && pathName === '/profile' && (
         <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
           <p className='font-inter text-sm green_gradient cursor-pointer' onClick={handleEdit}>Edit</p>

@@ -12,6 +12,10 @@ const promptSchema = new Schema({
     tag:{
         type:String,
         required: [true, 'Tag is required'],
+    },
+    likes:{
+        type: Number,
+        default: 0,
     }
 });
 

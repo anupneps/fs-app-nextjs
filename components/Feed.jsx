@@ -4,12 +4,16 @@ import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard';
 import { set } from 'mongoose';
 
-const PromtCardList = ({ data, handleTagClick }) => {
+const PromtCardList = ({ data, handleTagClick, handleLike }) => {
   // console.log("promtcardlist- data: ", data);
   return (
     <div className="mt-16 prompt_layout">
       {data.map((post, index) => (
-        <PromptCard key={index} post={post} handleTagClick={handleTagClick} />
+        <PromptCard 
+        key={index} 
+        post={post} 
+        handleTagClick={handleTagClick} 
+        handleLike={()=>{handleLike(post._id)}} />
       ))}
     </div>
   )
@@ -49,6 +53,14 @@ const Feed = () => {
     });
       setFilteredPosts(filtered)
   }, [searchText, posts])
+
+  const handleLike = async (id) => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <section className='feed'>
