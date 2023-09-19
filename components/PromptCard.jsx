@@ -7,13 +7,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 
-const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikeClick }) => {
+const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   
   const [copied, setCopied] = useState('');
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
-  const [liked, setLiked] = useState(0);
+  const [liked, setLiked] = useState(post.likes);
 
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -27,13 +27,23 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLike
     }
     router.push(`/profile/${post.creator._id}?name=${post.creator.username}`)
   }
-
-  const handleLike = () => {
-    setLiked((prevState)=> {
-      return prevState + 1
-    })
+ 
+  const handleLikeClick = async () => {
+    try {
+      const updatedLikes = liked + 1;
+      const res = await fetch(`/api/prompt/${post._id}`, {
+        method: 'PATCH',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({ ...post, likes: updatedLikes }),
+      })
+      if (res.ok) {
+        setLiked(updatedLikes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-
+ 
   return (
     <div className='prompt_card'>
       <div className='flex justify-between items-start gap-5'>
@@ -65,7 +75,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLike
       <div className='flex justify-between font-inter text-sm '>
       <p className='font-inter text-sm blue_gradient cursor-pointer'
         onClick={() => handleTagClick && handleTagClick(post.tag)}>{post.tag}</p>
-      <p className='justify-end cursor-pointer' onClick={handleLike} ><span className='mr-2'><FontAwesomeIcon icon={faThumbsUp} /></span>{liked}</p>
+      <p className='justify-end cursor-pointer' onClick={handleLikeClick} ><span className='mr-2'><FontAwesomeIcon icon={faThumbsUp} /></span>{liked}</p>
       </div>
       
       

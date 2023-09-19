@@ -1,10 +1,8 @@
 'use client';
-
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard';
-import { set } from 'mongoose';
 
-const PromtCardList = ({ data, handleTagClick, handleLike }) => {
+const PromtCardList = ({ data, handleTagClick }) => {
   // console.log("promtcardlist- data: ", data);
   return (
     <div className="mt-16 prompt_layout">
@@ -13,7 +11,7 @@ const PromtCardList = ({ data, handleTagClick, handleLike }) => {
         key={index} 
         post={post} 
         handleTagClick={handleTagClick} 
-        handleLike={()=>{handleLike(post._id)}} />
+         />
       ))}
     </div>
   )
@@ -54,13 +52,7 @@ const Feed = () => {
       setFilteredPosts(filtered)
   }, [searchText, posts])
 
-  const handleLike = async (id) => {
-    try {
-      
-    } catch (error) {
-      
-    }
-  }
+ 
 
   return (
     <section className='feed'>

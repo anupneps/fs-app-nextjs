@@ -14,6 +14,7 @@ const EditPrompt = () => {
   const [post, setPost] = useState({
     prompt: '',
     tag: '',
+    likes: 0
   });
 
   useEffect(() => {
@@ -22,7 +23,8 @@ const EditPrompt = () => {
         const data = await response.json();
         setPost({
             prompt: data.prompt,
-            tag: data.tag
+            tag: data.tag,
+            likes:data.likes
         }) 
     }
 
@@ -41,7 +43,8 @@ const EditPrompt = () => {
         method: 'PATCH',
         body: JSON.stringify({
           prompt: post.prompt,
-          tag: post.tag
+          tag: post.tag,
+          likes: post.likes
         }),
       });
       if (res.ok) {
