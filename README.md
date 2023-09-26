@@ -1,5 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+This is a nextjs fullstack project, where user can share and create AI prompt among the users. The project has been completed following the youtube tutorial by JavaScript Mastery (https://www.youtube.com/watch?v=wm5gMKuwSYk&t=9520s). However, there are many features that I build myself to complete the project. The features includes: 
+- Implement Search [by promt, by tag, by username]
+- Implement click by tag
+- Implement other user's profile view
+- Implement Like button with persistance
+  
 ## Getting Started
 
 First, run the development server:
